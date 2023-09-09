@@ -3,4 +3,6 @@ A web-based application that serves personalized recommendations to users. Users
 
 
 Demo Video:
+
+
 [![Demo Video](https://img.youtube.com/vi/pwJ_mSxjWno/0.jpg)](https://www.youtube.com/watch?v=pwJ_mSxjWno&ab_channel=BENJAMINCOLEMAN)
