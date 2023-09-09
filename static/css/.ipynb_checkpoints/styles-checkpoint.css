@@ -1,0 +1,115 @@
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif; /* Setting the default font for the website to Arial, if not available it will use any sans-serif font */
+    background-color: #f4f4f4; /* Setting a light gray background color */
+    color: #333; /* Default text color set to almost black */
+    line-height: 1.6; /* This gives a bit of space between lines of text */
+    margin: 0; /* Resets any default margin */
+    padding: 0; /* Resets any default padding */
+}
+
+.container {
+    max-width: 800px; /* Restricting the main content width to 800px */
+    margin: 0 auto; /* This centers the container in the middle of the page */
+    background-color: #fff; /* Setting a white background for the content */
+    padding: 20px; /* Adding space inside the container */
+    border-radius: 5px; /* Rounding the corners of the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow to the container */
+}
+
+h1, h2 {
+    color: #007BFF; /* Making the main headings (h1, h2) use the bootstrap primary color */
+}
+
+/* Styling for the dropdown and input fields */
+select, input {
+    width: 100%; /* Making them take the full width of the container */
+    padding: 10px; /* Adding some padding for better visual appeal */
+    margin: 10px 0; /* Adding margin to the top and bottom for spacing */
+    border: 1px solid #ccc; /* Setting a border */
+    border-radius: 4px; /* Rounding the corners of the inputs */
+}
+
+/* Styling for the buttons */
+button {
+    padding: 10px 20px; /* Adding padding for a better click area */
+    border: none; /* Removing the border */
+    border-radius: 5px; /* Rounding the button corners */
+}
+
+#generateBtn {
+    background-color: #007BFF; /* Using bootstrap primary color as the background */
+    color: #fff; /* White text color */
+}
+
+#submitFeedback {
+    background-color: #12f3b7
+; /* A distinct color for the feedback button */
+    color: #fff; /* White text color */
+}
+
+#restartButton {
+    background-color: #e74c3c; /* A distinct color for the restart button */
+    color: #fff; /* White text color */
+}
+
+/* Styling for the list items in recommendations */
+.list-group-item {
+    position: relative; /* This is set so we can position the "Listen" link absolute to it */
+}
+
+.list-group-item a {
+    position: absolute; /* Absolute position */
+    right: 10px; /* Positioned towards the right */
+    top: 50%; /* Centered vertically */
+    transform: translateY(-50%); /* This ensures it's perfectly centered */
+    text-decoration: none; /* Removing underline from the link */
+}
+
+/* This is a hover effect for the list items */
+.list-group-item:hover {
+    background-color: #f8f8f8; /* Slightly changing the background on hover for a subtle effect */
+}
+
+/* If you use any alerts, this will center the text in them */
+.alert {
+    text-align: center; /* Centering text */
+}
+
+
+/* Spacing classes for better control over vertical spaces */
+
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; }
+
+/* It's a good idea to also have classes for horizontal margins, 
+   in case you might need them in the future. */
+
+.ml-1 { margin-left: 5px; }
+.ml-2 { margin-left: 10px; }
+.ml-3 { margin-left: 15px; }
+.ml-4 { margin-left: 20px; }
+
+.mr-1 { margin-right: 5px; }
+.mr-2 { margin-right: 10px; }
+.mr-3 { margin-right: 15px; }
+.mr-4 { margin-right: 20px; }
+
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
+.mb-4 { margin-bottom: 20px; }
+
+#feedbackSubmittedMessage {
+    display: none;  /* start with it hidden */
+    background-color: #e8f4e1; /* a soft green background for visibility */
+    border: 1px solid #aad8aa; /* green border */
+    padding: 10px;
+    margin-top: 20px; 
+    font-size: 1.2em;
+    text-align: center; 
+    width: 100%; /* take the full width */
+}
+
