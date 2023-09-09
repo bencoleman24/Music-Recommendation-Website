@@ -6,7 +6,7 @@ This project is a web-based application that serves personalized recommendations
 __Demo Video__:
 
 
-[![Demo Video](https://img.youtube.com/vi/pwJ_mSxjWno/0.jpg)](https://www.youtube.com/watch?v=pwJ_mSxjWno&ab_channel=BENJAMINCOLEMAN)
+[![Demo Video](https://img.youtube.com/vi/pwJ_mSxjWno/3.jpg)](https://www.youtube.com/watch?v=pwJ_mSxjWno&ab_channel=BENJAMINCOLEMAN)
 
 
 __Features__:
