@@ -13,7 +13,7 @@ __Demo Video__:
 __Features__:
 
 * Dynamic Model Selection: Choose from various recommendation algorithms to tailor the experience.
-Feedback Mechanism: After viewing recommendations, users can provide feedback on the quality of suggestions, helping improve the system further.
+* Feedback Mechanism: After viewing recommendations, users can provide feedback on the quality of suggestions, helping improve the system further.
 * User-friendly Interface: Sleek design with intuitive controls and clear feedback mechanisms.
 
 __Technical Stack__:
