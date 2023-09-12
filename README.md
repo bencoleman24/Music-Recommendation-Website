@@ -1,6 +1,6 @@
 # Music Recommendation Website
 
-This project is a web-based application that serves personalized recommendations to users. Users can select the recommendation model type (e.g., popularity-based, cosine similarity, k-means, neural networks) and input their genre preferences or a song that they want a recommendations based off of. The system then generates tailored suggestions with corresponding song links, providing an smooth and interactive experience. 
+This project is a web-based application that serves personalized song recommendations to users. Users can select the recommendation model type (e.g., popularity-based, cosine similarity, k-means, neural networks) and input their genre preferences or a song that they want a recommendations based off of. The system then generates tailored suggestions with corresponding song links, providing an smooth and interactive experience. 
 
 
 __Demo Video__:
