@@ -1,7 +1,5 @@
 $(document).ready(function() {
-    // Detect change in recommendation model dropdown
     $('#modelTypeSelector').change(function() {
-        // Hide all input sections initially
         $('#inputSection').hide();
         $('#popularityInputs').hide();
         $('#MLInputs').hide();
@@ -22,7 +20,6 @@ $(document).ready(function() {
         }
     });
 
-    // Submit the form
     $('form').submit(function(e) {
         e.preventDefault();
 
@@ -31,7 +28,6 @@ $(document).ready(function() {
         $.post("/get_recommendations", $(this).serialize(), function(data) {
             $('#loadingMessage').hide();
             
-            // Display the recommendations
             $('#recommendationsList').empty();
             if (data.status === "success" && data.data && data.data.length && data.links && data.links.length === data.data.length) {
                 for(let i = 0; i < data.data.length; i++) {
@@ -40,29 +36,52 @@ $(document).ready(function() {
                 $('#resultsSection').show();
                 $('#feedbackSection').show();
 
-                // Hide the "Generate Recommendations" button
                 $('#generateBtn').hide();
             } else {
-                alert(data.message);  // or another user-friendly way to show the error message
+                alert(data.message);  
             }
         });
     });
 
-    // Restart button functionality
     $('#restartButton').click(function() {
         $('#resultsSection').hide();
         $('#feedbackSection').hide();
         $('#initialPrompt').show();
 
-        // Show the "Generate Recommendations" button
         $('#generateBtn').show();
     });
 
-    // Handle feedback submission if needed
     $('#submitFeedback').click(function() {
-        $('#feedbackSubmittedMessage').show();
-    
-        // Send feedback to server TODO
+    let feedback = $('#feedbackRating').val();
+    let form_data = $("form").serializeArray();
+    let input_data = "";
+    form_data.forEach(item => {
+        if(item.name === "artist" && item.value !== "") {
+            input_data += "Artist: " + item.value + ", ";
+        }
+        if(item.name === "track_name" && item.value !== "") {
+            input_data += "Track: " + item.value;
+        }
     });
-    
+    let model = $('#modelTypeSelector').val();
+    let output = $('#recommendationsList').text();  
+
+    $.post("/submit_feedback", {
+        feedback: feedback,
+        input_data: input_data,
+        model: model,
+        output: output
+    }, function(data) {
+        if (data.status === "success") {
+            $('#feedbackSubmittedMessage').show(500);
+            setTimeout(function() {
+                $('#feedbackSubmittedMessage').hide();
+            }, 5000);
+            $('#submitFeedback').prop('disabled', true);  
+        } else {
+            alert(data.message);
+        }
+    });
+});
+
 });
