@@ -103,13 +103,13 @@ button {
 .mb-4 { margin-bottom: 20px; }
 
 #feedbackSubmittedMessage {
-    display: none;  /* start with it hidden */
-    background-color: #e8f4e1; /* a soft green background for visibility */
-    border: 1px solid #aad8aa; /* green border */
-    padding: 10px;
-    margin-top: 20px; 
-    font-size: 1.2em;
-    text-align: center; 
-    width: 100%; /* take the full width */
+    position: fixed;
+    top: 20px; /* This will position the message 20px from the top of the viewport */
+    right: 20px; /* This will position the message 20px from the right edge of the viewport */
+    z-index: 1000; /* This ensures the message appears on top of other content */
+    padding: 10px; /* Add some padding for better appearance */
+    background-color: rgba(0,0,0,0.7); /* Semi-transparent black background */
+    color: #fff; /* White text color */
+    border-radius: 5px; /* Rounded corners */
 }
 
