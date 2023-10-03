@@ -28,6 +28,11 @@ $(document).ready(function() {
         $.post("/get_recommendations", $(this).serialize(), function(data) {
             $('#loadingMessage').hide();
             
+            if (data.status === "failure" && data.message.includes("Please wait")) {
+                alert(data.message);
+                return;
+            }
+            
             $('#recommendationsList').empty();
             if (data.status === "success" && data.data && data.data.length && data.links && data.links.length === data.data.length) {
                 for(let i = 0; i < data.data.length; i++) {
