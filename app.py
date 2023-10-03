@@ -1,5 +1,6 @@
 # Import Statements
 import csv
+import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +15,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from collections import defaultdict
 import warnings
 from sklearn.metrics.pairwise import cosine_similarity
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -32,6 +33,7 @@ load_env_vars("env.txt")
 # Variables used to access spotify api, will be globally accessed in functions when needed
 CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
 CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
+APP_KEY = os.environ.get('APP_SECRET_KEY')
 
 # Dataset used for ML reccomendation models
 spotify_data = pd.read_csv("data/tracks_features.csv")
@@ -154,8 +156,8 @@ def popularity_genre_recommendation(genre, num_recommendations):
         playlist_link = 'https://open.spotify.com/playlist/1h0CEZCm6IbFTbxThn6Xcs'
 
     playlist_df = get_playlist_tracks(playlist_link)
-    playlist_df_popularity_sorted = playlist_df.sort_values(by='popularity', ascending=False)
-    recommendations = playlist_df_popularity_sorted[['name', 'artists']].values.tolist()[:num_recommendations]
+    playlist_df_shuffled = playlist_df.sample(frac=1)
+    recommendations = playlist_df_shuffled[['name', 'artists']].values.tolist()[:num_recommendations]
     
     return ["{}: {}".format(artist, song) for song, artist in recommendations]
 
@@ -258,6 +260,7 @@ def nn_recommendation(artist, track_name, num_recommendations, spotify_data):
 
 
 app = Flask(__name__)
+app.secret_key = APP_KEY 
 
 @app.route('/')
 def index():
@@ -265,6 +268,17 @@ def index():
 
 @app.route('/get_recommendations', methods=['POST'])
 def get_recommendations():
+    rate_limit_sec = 20
+    current_time = time.time()
+
+    if 'last_recommendation_time' in session:
+        time_since_last_request = current_time - session['last_recommendation_time']
+        if time_since_last_request < rate_limit_sec:
+            return jsonify({"status": "failure", "message": "Please wait a few seconds before requesting another recommendation."})
+
+    session['last_recommendation_time'] = current_time
+    
+    
     data = {
         "status": "failure",
         "message": "An unknown error occurred."
