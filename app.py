@@ -1,4 +1,5 @@
 # Import Statements
+import csv
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -312,6 +313,25 @@ def get_recommendations():
         data["message"] = str(e)
 
     return jsonify(data)
+
+@app.route('/submit_feedback', methods=['POST'])
+
+def submit_feedback():
+    try:
+        feedback = request.form['feedback']
+        input_data = request.form['input_data']
+        
+        model = request.form['model']
+        output = request.form['output']
+        print(f"FEEDBACK: {feedback}")
+        # Writing feedback data to a CSV file
+        with open('feedback_data.csv', 'a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([input_data, model, output, feedback])
+        
+        return jsonify({"status": "success", "message": "Feedback submitted successfully."})
+    except Exception as e:
+        return jsonify({"status": "failure", "message": str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port = 8000)
