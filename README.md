@@ -25,5 +25,5 @@ __Future Enhancements__:
 
 * External hosting/scalability for 24/7 accessibility.
 * Integrate more advanced recommendation algorithms and add improvements to existing models.
-* Integrate backend of user feedback and add detailed analytics with feedback data.
+* ~~Integrate backend of user feedback~~, add detailed analytics with feedback data.
 * Further enhance design/aesthetics of website.
