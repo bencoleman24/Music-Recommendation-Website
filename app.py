@@ -1,5 +1,6 @@
 # Import Statements
 import csv
+from datetime import timedelta
 import time
 import pandas as pd
 import numpy as np
@@ -33,7 +34,6 @@ load_env_vars("env.txt")
 # Variables used to access spotify api, will be globally accessed in functions when needed
 CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
 CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
-APP_KEY = os.environ.get('APP_SECRET_KEY')
 
 # Dataset used for ML reccomendation models
 spotify_data = pd.read_csv("data/tracks_features.csv")
@@ -261,23 +261,28 @@ def nn_recommendation(artist, track_name, num_recommendations, spotify_data):
 
 app = Flask(__name__)
 app.secret_key = APP_KEY 
+app.config['SESSION_COOKIE_SECURE'] = False
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/get_recommendations', methods=['POST'])
+@app.route('/get_recommendations', methods=['POST'])
 def get_recommendations():
     rate_limit_sec = 20
     current_time = time.time()
-
+    
     if 'last_recommendation_time' in session:
         time_since_last_request = current_time - session['last_recommendation_time']
+        
         if time_since_last_request < rate_limit_sec:
             return jsonify({"status": "failure", "message": "Please wait a few seconds before requesting another recommendation."})
 
     session['last_recommendation_time'] = current_time
-    
+    print("Updated session time to:", session['last_recommendation_time'])
+
+
     
     data = {
         "status": "failure",
@@ -326,10 +331,13 @@ def get_recommendations():
     except Exception as e:
         data["message"] = str(e)
 
-    return jsonify(data)
+    response = jsonify(data)
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+
+    return response
 
 @app.route('/submit_feedback', methods=['POST'])
-
 def submit_feedback():
     try:
         feedback = request.form['feedback']
@@ -337,7 +345,6 @@ def submit_feedback():
         
         model = request.form['model']
         output = request.form['output']
-        print(f"FEEDBACK: {feedback}")
         # Writing feedback data to a CSV file
         with open('feedback_data.csv', 'a', newline='') as file:
             writer = csv.writer(file)
