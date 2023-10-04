@@ -25,9 +25,17 @@ __Technical Stack__:
 * Frontend: HTML, CSS, and JavaScript
 * Backend: Python (Flask, Pandas, Scikit-Learn, Tensorflow, Spotipy)
 
+__Recommendation Limitations__:
+
+The training data for the reccomendation models is relativley small (~350k rows) compared to what an extensive spotify dataset with every song would look like. This limits the potential of the models because it makes it difficult to add quality assurance filters like a minimum view count. Occasionally songs that are irrelevant or of low quality will be reccomended. 
+
+
 __Future Enhancements__:
 
-* External hosting/scalability for 24/7 accessibility.
-* Integrate more advanced recommendation algorithms and add improvements to existing models.
+* ~~External hosting for 24/7 accessibility.~~
 * ~~Integrate backend of user feedback~~, add detailed analytics with feedback data.
+* Replace the training dataset with one that is larger and more feature dense.
+* Integrate more advanced recommendation algorithms and add improvements to existing models.
 * Further enhance design/aesthetics of website.
+
+  
