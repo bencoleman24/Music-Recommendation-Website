@@ -1,0 +1,6 @@
+input_data,model,output,feedback
+,popularity_based,Creedence Clearwater Revival: Fortunate Son - LinkBon Jovi: You Give Love A Bad Name - LinkAC/DC: For Those About to Rock (We Salute You) - Link,2
+,popularity_based,Timbaland: Give It To Me - Link,5
+,popularity_based,Canserbero: Es Épico - LinkDr. Dre: Forgot About Dre - LinkOffset: Ric Flair Drip (with Metro Boomin) - LinkLil Uzi Vert: XO Tour Llif3 - Link,5
+"Artist: Travis Scott, Track: Sicko Mode",cosine_similarity,Guano Apes: You Can't Stop Me - LinkStart Trouble: Chemical - LinkMidy: SweetDream - Link,2
+"Artist: Drake, Track: Do Not Disturb",kmeans,"Yngwie Malmsteen: Bad Reputation - LinkFairlight Children: 808 Bit - LinkJonah Sharp: God O.D. - Jonah Sharp Mix - LinkPaul Wall: They Don’t Know - LinkRosie Gaines: I Want U - Inner City Blue, Earth Mama Version - LinkDeep Forest: India - Link",5
