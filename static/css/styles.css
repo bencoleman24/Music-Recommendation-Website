@@ -1,115 +1,128 @@
-/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif; /* Setting the default font for the website to Arial, if not available it will use any sans-serif font */
-    background-color: #f4f4f4; /* Setting a light gray background color */
-    color: #333; /* Default text color set to almost black */
-    line-height: 1.6; /* This gives a bit of space between lines of text */
-    margin: 0; /* Resets any default margin */
-    padding: 0; /* Resets any default padding */
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #ECEFF1, #f4f4f4 250px, #fff 250px, #fff);
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s; 
 }
 
 .container {
-    max-width: 800px; /* Restricting the main content width to 800px */
-    margin: 0 auto; /* This centers the container in the middle of the page */
-    background-color: #fff; /* Setting a white background for the content */
-    padding: 20px; /* Adding space inside the container */
-    border-radius: 5px; /* Rounding the corners of the container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow to the container */
+    max-width: 800px;
+    margin: 40px auto; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; 
+}
+
+.container:hover {
+    transform: scale(1.02); 
 }
 
 h1, h2 {
-    color: #007BFF; /* Making the main headings (h1, h2) use the bootstrap primary color */
+    color: #007BFF;
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007BFF; 
+    padding-bottom: 10px; 
 }
 
-/* Styling for the dropdown and input fields */
+
+
 select, input {
-    width: 100%; /* Making them take the full width of the container */
-    padding: 10px; /* Adding some padding for better visual appeal */
-    margin: 10px 0; /* Adding margin to the top and bottom for spacing */
-    border: 1px solid #ccc; /* Setting a border */
-    border-radius: 4px; /* Rounding the corners of the inputs */
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset; 
+    transition: box-shadow 0.3s, transform 0.3s; 
 }
 
-/* Styling for the buttons */
+select:focus, input:focus {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) inset, 0 2px 4px rgba(0, 0, 0, 0.1); 
+    outline: none;
+}
+
 button {
-    padding: 10px 20px; /* Adding padding for a better click area */
-    border: none; /* Removing the border */
-    border-radius: 5px; /* Rounding the button corners */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; 
 }
 
 #generateBtn {
-    background-color: #007BFF; /* Using bootstrap primary color as the background */
-    color: #fff; /* White text color */
+    background-color: #007BFF;
+    color: #fff;
+}
+
+#generateBtn:hover {
+    background-color: #0056b3; 
 }
 
 #submitFeedback {
-    background-color: #12f3b7
-; /* A distinct color for the feedback button */
-    color: #fff; /* White text color */
+    background-color: #12f3b7;
+    color: #fff;
+}
+
+#submitFeedback:hover {
+    background-color: #0ee2a5; 
 }
 
 #restartButton {
-    background-color: #e74c3c; /* A distinct color for the restart button */
-    color: #fff; /* White text color */
+    background-color: #e74c3c;
+    color: #fff;
 }
 
-/* Styling for the list items in recommendations */
+#restartButton:hover {
+    background-color: #d43c2c; 
+}
+
 .list-group-item {
-    position: relative; /* This is set so we can position the "Listen" link absolute to it */
+    position: relative;
+    transition: background-color 0.3s; 
 }
 
 .list-group-item a {
-    position: absolute; /* Absolute position */
-    right: 10px; /* Positioned towards the right */
-    top: 50%; /* Centered vertically */
-    transform: translateY(-50%); /* This ensures it's perfectly centered */
-    text-decoration: none; /* Removing underline from the link */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: #007BFF; 
+    font-weight: bold; 
 }
 
-/* This is a hover effect for the list items */
-.list-group-item:hover {
-    background-color: #f8f8f8; /* Slightly changing the background on hover for a subtle effect */
-}
-
-/* If you use any alerts, this will center the text in them */
 .alert {
-    text-align: center; /* Centering text */
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px; 
 }
-
-
-/* Spacing classes for better control over vertical spaces */
-
-.mt-1 { margin-top: 5px; }
-.mt-2 { margin-top: 10px; }
-.mt-3 { margin-top: 15px; }
-.mt-4 { margin-top: 20px; }
-
-/* It's a good idea to also have classes for horizontal margins, 
-   in case you might need them in the future. */
-
-.ml-1 { margin-left: 5px; }
-.ml-2 { margin-left: 10px; }
-.ml-3 { margin-left: 15px; }
-.ml-4 { margin-left: 20px; }
-
-.mr-1 { margin-right: 5px; }
-.mr-2 { margin-right: 10px; }
-.mr-3 { margin-right: 15px; }
-.mr-4 { margin-right: 20px; }
-
-.mb-1 { margin-bottom: 5px; }
-.mb-2 { margin-bottom: 10px; }
-.mb-3 { margin-bottom: 15px; }
-.mb-4 { margin-bottom: 20px; }
 
 #feedbackSubmittedMessage {
     position: fixed;
-    top: 20px; /* This will position the message 20px from the top of the viewport */
-    right: 20px; /* This will position the message 20px from the right edge of the viewport */
-    z-index: 1000; /* This ensures the message appears on top of other content */
-    padding: 10px; /* Add some padding for better appearance */
-    background-color: rgba(0,0,0,0.7); /* Semi-transparent black background */
-    color: #fff; /* White text color */
-    border-radius: 5px; /* Rounded corners */
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 12px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
 }
 
+.recommendation-title {
+    font-weight: bold; 
+    color: black; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+    font-size: 16px;  
+    text-align: center; 
+}
