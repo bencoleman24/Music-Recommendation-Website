@@ -5,10 +5,10 @@ This project is a web-based application that serves personalized song recommenda
 ## __Website Link__:  [mlmusicrec.com](http://www.mlmusicrec.com)
 #### ^^^ Try the website yourself and get a recommendation ^^^ 
 
+<br />
  
- <br />
 <br />
-<br />
+
 __Demo Video__ (Not up to date):
 
 
