@@ -13,7 +13,6 @@ __Demo Video__ (Not up to date):
 
 
 
-[![Demo Video](https://img.youtube.com/vi/pwJ_mSxjWno/0.jpg)](https://www.youtube.com/watch?v=pwJ_mSxjWno&ab_channel=BENJAMINCOLEMAN)
 
 __Features__:
 
