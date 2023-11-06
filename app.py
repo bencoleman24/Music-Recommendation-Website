@@ -21,6 +21,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
+import logging
 
 # This function helps get the spotify api credentials by grabbing them from the txt file
 def load_env_vars(filename):
@@ -36,9 +37,8 @@ CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
 CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 # Dataset used for ML reccomendation models
-spotify_data = pd.read_csv("data/tracks_features.csv")
-audio_features = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 
-                  'instrumentalness', 'liveness', 'valence', 'tempo', 'time_signature']
+spotify_data = pd.read_csv("data/main_dataset.csv")
+audio_features = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'hip hop', 'jazz', 'classical', 'metal', 'reggae','instrumentalness', 'liveness', 'valence', 'tempo', 'time_signature', 'popularity']
 spotify_data[audio_features] = spotify_data[audio_features].fillna(0)
 
 # This function searches the spotify api for a song and returns a dataframe of the songs relevant data
@@ -63,7 +63,7 @@ def search_spotify(artist_name, song_title):
     }
 
     song_info.update(features)
-
+    print(song_info)
     return pd.DataFrame(song_info)
 
 
@@ -71,7 +71,7 @@ def search_spotify(artist_name, song_title):
 def get_song(artist, track_name):
     # reformat artist so it fits the style in the dataset
     artist_formatted = f"['{artist}']"
-    songs_matching = spotify_data[(spotify_data['name'] == track_name) & (spotify_data['artists'] == artist_formatted)]
+    songs_matching = spotify_data[(spotify_data['name'] == track_name) & (spotify_data['artists_names'] == artist_formatted)]
     if songs_matching.size == 0:
         print("song not found in data")
         try:
@@ -79,7 +79,7 @@ def get_song(artist, track_name):
         except:
             return "Error occurred searching spotify api"
         return song_data
-    return pd.DataFrame(songs_matching.iloc[0]).T.sort_values(by='year', ascending=False)
+    return pd.DataFrame(songs_matching.iloc[0]).T.sort_values(by='release_date', ascending=False)
 
 # This function is used to grab for songs from a playlist in spotify
 def get_playlist_tracks(playlist_url):
@@ -106,7 +106,6 @@ def get_playlist_tracks(playlist_url):
         }
 
         songs.append(song_info)
-
     return pd.DataFrame(songs)
 
 # This function get's the links from spotify of the recommendations previously generated
@@ -174,8 +173,8 @@ def cosine_similarity_model(artist, track_name, num_recommendations, spotify_dat
     cosine_similarities = cosine_similarity(song_data[audio_features].values.reshape(1, -1), spotify_data[audio_features])
     
     # Get the top n most similar tracks (excluding the chosen track itself)
-    similar_tracks = spotify_data.iloc[cosine_similarities[0].argsort()][['name', 'artists']].drop_duplicates()
-    similar_tracks['artists'] = similar_tracks['artists'].apply(lambda x: x.strip("[]").replace("'", ""))
+    similar_tracks = spotify_data.iloc[cosine_similarities[0].argsort()][['name', 'artists_names']].drop_duplicates()
+    similar_tracks['artists_names'] = similar_tracks['artists_names'].apply(lambda x: x.strip("[]").replace("'", ""))
     similar_tracks_list = similar_tracks[~((similar_tracks['name'] == track_name))].values.tolist()
     recommendations = similar_tracks_list[-num_recommendations:]
     
@@ -207,8 +206,8 @@ def kmeans_recommendation(artist, track_name, num_recommendations, spotify_data)
     cluster = kmeans.predict(song_data_scaled)[0]
 
     same_cluster_tracks = spotify_data[spotify_data['cluster'] == cluster].sample(num_recommendations)
-    same_cluster_tracks['artists'] = same_cluster_tracks['artists'].apply(lambda x: x.strip("[]").replace("'", ""))
-    recommendations = same_cluster_tracks[['name', 'artists']].values.tolist()
+    same_cluster_tracks['artists_names'] = same_cluster_tracks['artists_names'].apply(lambda x: x.strip("[]").replace("'", ""))
+    recommendations = same_cluster_tracks[['name', 'artists_names']].values.tolist()
     return ["{}: {}".format(artist, song) for song, artist in recommendations]
 
 # This function gets recommendations based on a nueral network model
@@ -239,7 +238,7 @@ def nn_recommendation(artist, track_name, num_recommendations, spotify_data):
     X_train = spotify_data[audio_features].fillna(0)
     X_train_scaled = scaler.fit_transform(X_train)
 
-    model.fit(X_train_scaled, X_train_scaled, epochs=50, batch_size=32)
+    model.fit(X_train_scaled, X_train_scaled, epochs=10, batch_size=32)
 
     # Use the trained model to find similar songs
     input_features_scaled = input_features_scaled.reshape(1, -1)
@@ -249,19 +248,21 @@ def nn_recommendation(artist, track_name, num_recommendations, spotify_data):
     cosine_similarities = cosine_similarity(predicted_features_scaled, X_train_scaled)
 
     # Get the top n most similar tracks (excluding the chosen track itself)
-    similar_tracks = spotify_data.iloc[cosine_similarities[0].argsort()][['name', 'artists']].drop_duplicates()
-    similar_tracks['artists'] = similar_tracks['artists'].apply(lambda x: x.strip("[]").replace("'", ""))
+    similar_tracks = spotify_data.iloc[cosine_similarities[0].argsort()][['name', 'artists_names']].drop_duplicates()
+    similar_tracks['artists_names'] = similar_tracks['artists_names'].apply(lambda x: x.strip("[]").replace("'", ""))
 
     similar_tracks_list = similar_tracks[~((similar_tracks['name'] == track_name))].values.tolist()
     recommendations = similar_tracks_list[-num_recommendations:]
-
+    print(recommendations)
     return ["{}: {}".format(artist, song) for song, artist in recommendations]
 
 
 
 app = Flask(__name__)
-app.secret_key = APP_KEY 
+app.secret_key = '1e4839w583eifn5927492ej048b10u' 
+#app.config["SERVER_NAME"] = "mlmusicrec.com"
 app.config['SESSION_COOKIE_SECURE'] = False
+#app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 
 @app.route('/')
 def index():
@@ -282,6 +283,7 @@ def get_recommendations():
     session['last_recommendation_time'] = current_time
     print("Updated session time to:", session['last_recommendation_time'])
 
+    # Rest of your code for handling recommendations
 
     
     data = {
@@ -334,7 +336,6 @@ def get_recommendations():
     response = jsonify(data)
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
-
     return response
 
 @app.route('/submit_feedback', methods=['POST'])
