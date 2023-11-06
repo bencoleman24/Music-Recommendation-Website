@@ -52,19 +52,39 @@ def search_spotify(artist_name, song_title):
     spotify = spotipy.Spotify(client_credentials_manager=credentials_manager)
 
     query = 'track: {} artist: {}'.format(song_title, artist_name)
-    raw_song_data = spotify.search(q=query, limit=1)['tracks']['items'][0]
-    features = spotify.audio_features(raw_song_data['id'])[0]
-    
-    song_info = {
-        'name': [song_title],
-        'explicit': [int(raw_song_data['explicit'])],
-        'duration_ms': [raw_song_data['duration_ms']],
-        'popularity': [raw_song_data['popularity']],
-    }
+    search_results = spotify.search(q=query, limit=1)
+    if search_results['tracks']['items']:
+        raw_song_data = search_results['tracks']['items'][0]
+        features = spotify.audio_features(raw_song_data['id'])[0]
+        
+        artist_id = raw_song_data['artists'][0]['id']
+        artist_genres = spotify.artist(artist_id)['genres']
+        
+        song_info = {
+            'name': song_title,
+            'explicit': int(raw_song_data['explicit']),
+            'duration_ms': raw_song_data['duration_ms'],
+            'popularity': raw_song_data['popularity'],
+            'genres': artist_genres
+        }
+        song_info.update(features)
 
-    song_info.update(features)
-    print(song_info)
-    return pd.DataFrame(song_info)
+        genres = ['pop', 'country', 'dance', 'electronic', 'folk', 'rock',
+                'hip hop', 'jazz', 'classical', 'metal', 'reggae']
+
+        for genre in genres:
+            song_info[genre] = 0
+
+        song_info_df = pd.DataFrame([song_info])
+        
+        for genre in genres:
+            if genre in artist_genres:
+                song_info_df[genre] = 1
+
+        return song_info_df
+    else:
+        print("No results found for that artist and song title.")
+        return pd.DataFrame()
 
 
 # The purpose of this function is to get the row of data associated with the artist/track 
