@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="main-wrapper">
+    <div class="container">
         <h1 class="mb-4">Music Recommendation Website</h1>
+        <h2>Leveraging machine learning models and Spotify data to create personalized music recommendations</h2>
+        <hr>
         <form action="/get_recommendations" method="post">
             <div id="initialPrompt">
-                <h3 class="mb-3">What music recommendation model would you like to use?</h3>
+               <h4 class="center-text">What music recommendation model would you like to use?</h4>
                 <p><strong>Popularity Based:</strong> Gives recommendations based on current popular music trends.</p>
                 <p><strong>Cosine Similarity:</strong> Finds music similar to your taste using cosine similarity metrics.</p>
                 <p><strong>K-Means Clustering:</strong> Groups music into clusters and recommends from a relevant cluster.</p>
-                <p><strong>Neural Network:</strong> Uses deep learning to give music suggestions.</p>
+                <p><strong>Neural Network:</strong> Uses deep learning to give music suggestions (may take a few minutes).</p>
                 <select name="modelType" id="modelTypeSelector">
                     <option value="">--Select a model--</option>
                     <option value="popularity_based">Popularity Based Recommendation</option>
@@ -43,7 +46,8 @@
                 </div>
 
                 <!-- ML Inputs -->
-                <div id="MLInputs" style="display: none;">
+                <div id="MLInputs">
+                    <div class="message-box">Enter a song that you'd like recommendations based on:</div>
                     <input type="text" name="artist" placeholder="Artist Name">
                     <input type="text" name="track_name" placeholder="Track Name">
                     <input type="number" name="numRecommendationsML" value="3" min="1" max="10" placeholder="Number of Recommendations">
