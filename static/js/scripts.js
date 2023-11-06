@@ -1,11 +1,17 @@
 $(document).ready(function() {
     $('#modelTypeSelector').change(function() {
+        let selectedModel = $(this).val();
+    
+        if (['cosine_similarity', 'kmeans', 'nn'].includes(selectedModel)) {
+            $('.message-box').show(); 
+        } else {
+            $('.message-box').hide();
+        }
+    
         $('#inputSection').hide();
         $('#popularityInputs').hide();
         $('#MLInputs').hide();
-
-        let selectedModel = $(this).val();
-
+    
         switch(selectedModel) {
             case 'popularity_based':
                 $('#inputSection').show();
@@ -36,7 +42,7 @@ $(document).ready(function() {
             $('#recommendationsList').empty();
             if (data.status === "success" && data.data && data.data.length && data.links && data.links.length === data.data.length) {
                 for(let i = 0; i < data.data.length; i++) {
-                    $('#recommendationsList').append('<li class="list-group-item">' + data.data[i] + ' - <a href="' + data.links[i] + '" target="_blank">Song Link</a></li>');
+                    $('#recommendationsList').append('<li class="list-group-item">' + data.data[i] + '  <a href="' + data.links[i] + '" target="_blank">Song Link</a></li>');
                 }
                 $('#resultsSection').show();
                 
@@ -46,7 +52,7 @@ $(document).ready(function() {
 
                 $('#generateBtn').hide();
                 
-                // Re-enable the "Submit Feedback" button when new recommendations are displayed
+               
                 $('#submitFeedback').prop('disabled', false);
 
             } else {
