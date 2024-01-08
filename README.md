@@ -33,7 +33,7 @@ The training data for the reccomendation models is relativley small (~350k rows)
 
 __Future Enhancements__:
 
-* ~~External hosting for 24/7 accessibility.~~
+* External hosting for 24/7 accessibility.
 * ~~Integrate backend of user feedback~~, add detailed analytics with feedback data.
 *~~Replace the training dataset with one that is larger and more feature dense.~~
 * Integrate more advanced recommendation algorithms and add improvements to existing models.
