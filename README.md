@@ -9,9 +9,6 @@ This project is a web-based application that serves personalized song recommenda
  
 <br />
 
-__Demo Video__ (Not up to date):
-
-
 
 
 __Features__:
