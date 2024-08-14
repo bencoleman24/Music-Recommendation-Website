@@ -10,9 +10,9 @@ This project is a web-based application that serves personalized song recommenda
 
 __Features__:
 
-* Dynamic Model Selection: Choose from various recommendation algorithms to tailor the experience.
-* Feedback Mechanism: After viewing recommendations, users can provide feedback on the quality of suggestions, helping improve the system further.
-* User-friendly Interface: Sleek design with intuitive controls and clear feedback mechanisms.
+* Model Selection: Choose from 4 recommendation models to tailor the experience.
+* Feedback Mechanism: After viewing recommendations, users can provide feedback on the quality of recommendations, helping improve the system further.
+* Spotify Song Links: Each song reccomendation comes with a spotify link taking the user right to the song
 
   
 __Technical Stack__:
