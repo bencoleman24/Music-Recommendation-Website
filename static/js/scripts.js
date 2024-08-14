@@ -1,17 +1,17 @@
 $(document).ready(function() {
     $('#modelTypeSelector').change(function() {
         let selectedModel = $(this).val();
-    
+
         if (['cosine_similarity', 'kmeans', 'nn'].includes(selectedModel)) {
-            $('.message-box').show(); 
+            $('.message-box').show();
         } else {
             $('.message-box').hide();
         }
-    
+
         $('#inputSection').hide();
         $('#popularityInputs').hide();
         $('#MLInputs').hide();
-    
+
         switch(selectedModel) {
             case 'popularity_based':
                 $('#inputSection').show();
@@ -51,12 +51,10 @@ $(document).ready(function() {
                 $('#feedbackSection').show();
 
                 $('#generateBtn').hide();
-                
-               
                 $('#submitFeedback').prop('disabled', false);
 
             } else {
-                alert(data.message);  
+                alert(data.message); 
             }
         });
     });
@@ -83,7 +81,7 @@ $(document).ready(function() {
             }
         });
         let model = $('#modelTypeSelector').val();
-        let output = $('#recommendationsList').text();  
+        let output = $('#recommendationsList').text(); 
 
         $.post("/submit_feedback", {
             feedback: feedback,
@@ -96,11 +94,10 @@ $(document).ready(function() {
                 setTimeout(function() {
                     $('#feedbackSubmittedMessage').hide();
                 }, 5000);
-                $('#submitFeedback').prop('disabled', true);  
+                $('#submitFeedback').prop('disabled', true); 
             } else {
                 alert(data.message);
             }
         });
     });
-
 });
