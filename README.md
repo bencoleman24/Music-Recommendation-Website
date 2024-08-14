@@ -23,7 +23,7 @@ __Technical Stack__:
   
 __Recommendation Limitations__:
 
-The training data for the reccomendation models is relativley small (~350k rows) compared to what an extensive spotify dataset with every song would look like. This limits the potential of the models because it makes it difficult to add quality assurance filters like a minimum view count. Occasionally songs that are irrelevant or of low quality will be reccomended. 
+The training data for the reccomendation models is relativley small (~350k rows) compared to what an extensive spotify dataset with every song would look like. This limits the potential of the models because it makes it difficult to add quality assurance filters like a minimum view count. Occasionally songs that are irrelevant or of low quality will be reccomended. Typically, music recommendation models rely on clustering algorithms that group listeners based on their preferences and suggest songs that similar listeners enjoy. However, I chose a different approach by using audio feature data to recommend songs. While this method might not be the most conventional or ideal, the results are still intriguing and entertaining. :)
 
 
 
