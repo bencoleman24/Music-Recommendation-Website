@@ -27,5 +27,15 @@ The training data for the reccomendation models is relativley small (~350k rows)
 
 
 
+### __Demo Video__:
+
+
+https://github.com/user-attachments/assets/27fc2fdf-7e58-4f26-b954-dc3480d35289
+
+
+
+
+
+
   #### __Website Link__:  [mlmusicrec.com](http://www.mlmusicrec.com)
 ##### ^^^ Try the website yourself and get a recommendation ^^^ 
