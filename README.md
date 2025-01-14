@@ -2,7 +2,7 @@
 
 This project is a web-based application that serves personalized song recommendations to users. Users can select the recommendation model type (e.g., popularity-based, cosine similarity, k-means, neural networks) and input their genre preferences or a song that they want a recommendations based off of. The system then generates tailored suggestions with corresponding song links, providing an smooth and interactive experience. 
 
-
+Due to recent changes with the spotify api this project is no longer publicly available :(
  
 <br />
 
@@ -29,8 +29,9 @@ The training data for the reccomendation models is relativley small (~350k rows)
 
 ### __Demo Video__:
 
-
 https://github.com/user-attachments/assets/27fc2fdf-7e58-4f26-b954-dc3480d35289
+
+
 
 
 
